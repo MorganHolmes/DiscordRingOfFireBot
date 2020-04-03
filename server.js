@@ -9,37 +9,17 @@ client.on('ready', () => {
   console.log('Ring of Fire Bot Is Logged In');
 });
 
-//Array of Skyrim guard quotes
-var quotes = ["I used to be an adventurer like you. Then I took an arrow in the knee...","Let me guess... someone stole your sweetroll.","Citizen.","Disrespect the law, and you disrespect me.","What do you need?","Trouble?","What is it?","No lollygaggin'.",
-"My cousin's out fighting dragons, and what do I get? Guard duty.","Gotta keep my eyes open. Damn dragons could swoop down at any time.","Fear not. Come dragon or giant, we'll be ready."];
-
 let players = [];
 let deckID = "";
 let remainingCards = "";
 
-function generateEmbedMessage(){
-  var randomNumber = Math.floor(Math.random() * quotes.length);
-  var quote = quotes[randomNumber];
-  //Creates a rich embeded object
-  const embed = new Discord.RichEmbed()
-    //Blank space
-    //.addBlankField(true)
-    //Image and the text
-    .setImage("https://i.redd.it/bk0i8nnnzwzy.jpg")
-    .addField('Guard','"' + quote  + '"');
-
-  return embed;
-
-}
-
 const getCardMessage = (mess,card) => {
     const message = new Discord.MessageEmbed()
         .setTitle(card.cards[0].value + " of " + card.cards[0].suit )
-        .setImage(card.cards[0].image);
+        .setImage(card.cards[0].image)
+        .setFooter(remainingCards + " cards remaining");
     mess.channel.send(message);
 }
-
-
 
 client.on('message', async mess =>{
     if (mess.content === 'rofnewgame'){
@@ -85,7 +65,6 @@ client.on('message', async mess =>{
     if(mess.content === 'rofpickcard'){
         const pickedCard = await fetch('https://deckofcardsapi.com/api/deck/'+deckID+'/draw/?count=1').then(res => res.json());
         remainingCards = pickedCard.remaining;
-        console.log(pickedCard);
         getCardMessage(mess,pickedCard);
     }
 
