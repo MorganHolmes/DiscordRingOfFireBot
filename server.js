@@ -32,6 +32,14 @@ function generateEmbedMessage(){
 
 }
 
+const getCardMessage = (mess,card) => {
+    const message = new Discord.MessageEmbed()
+        .setTitle(card.cards[0].value + " of " + card.cards[0].suit )
+        .setImage(card.cards[0].image);
+    mess.channel.send(message);
+}
+
+
 
 client.on('message', async mess =>{
     if (mess.content === 'rofnewgame'){
@@ -78,7 +86,7 @@ client.on('message', async mess =>{
         const pickedCard = await fetch('https://deckofcardsapi.com/api/deck/'+deckID+'/draw/?count=1').then(res => res.json());
         remainingCards = pickedCard.remaining;
         console.log(pickedCard);
-        mess.channel.send(pickedCard.cards[0].value + " " + pickedCard.cards[0].suit);
+        getCardMessage(mess,pickedCard);
     }
 
 
