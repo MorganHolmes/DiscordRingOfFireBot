@@ -31,16 +31,16 @@ function generateEmbedMessage(){
 
 
 client.on('message', mess =>{
-    if (mess.content === 'newgame'){
+    if (mess.content === 'rofnewgame'){
         mess.channel.send("Welcome To Discord Ring of Fire");
         //empties the player array
         players = [];
         console.log("New Game Has Been Started");
     }
 
-    if(mess.content.includes('newplayer')){
+    if(mess.content.includes('rofnewplayer')){
         let inboundMessage = mess.content;
-        let removedNewPlayerCommand = inboundMessage.replace("newplayer ","");
+        let removedNewPlayerCommand = inboundMessage.replace("rofnewplayer ","");
         let removedHashTag = removedNewPlayerCommand.replace("#","");
         if(players.length >= 9){
             mess.channel.send("Sorry, only 10 players can play Discord Ring of Fire.");
@@ -52,12 +52,14 @@ client.on('message', mess =>{
         }
     }
 
-    if (mess.content === 'listplayers'){
-        if(players.length > 0){
-            mess.channel.send("No players in the game. Use the newplayer #name command to add a new player.");
+    if (mess.content === 'roflistplayers'){
+        if(players.length == 0){
+            mess.channel.send("No players in the game. Use the new player command to add a new player.");
         }
-        for(let x = 0; x<players.length;x++){
-            mess.channel.send("Player"+(x+1)+":"+" "+players[x]);
+        else{
+            for(let x = 0; x<players.length;x++){
+                mess.channel.send("Player"+(x+1)+":"+" "+players[x]);
+            }
         }
     }
 
