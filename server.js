@@ -38,7 +38,11 @@ client.on('message', mess =>{
         console.log("New Game Has Been Started");
     }
 
-    if(mess.content.includes('rofnewplayer')){
+    if(mess.content === 'rofcommands'){
+        mess.channel.send("rofnewgame - Start A New Game \nrofnewplayer - Add A New Player \nroflistplayers - List All Current Players\nrofcommands - List All Commands");
+    }
+
+    if(mess.content.startsWith('rofnewplayer')){
         let inboundMessage = mess.content;
         let removedNewPlayerCommand = inboundMessage.replace("rofnewplayer ","");
         let removedHashTag = removedNewPlayerCommand.replace("#","");
