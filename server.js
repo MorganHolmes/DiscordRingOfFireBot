@@ -51,7 +51,10 @@ client.on('message', async mess =>{
         //Starts a new game and stores the deck ID
         const newDeck = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1').then(response => response.json());
         deckID = newDeck.deck_id;
-
+        remainingCards = "";
+        numberOfKings = 4;
+        rofRules = new Map();
+        playerCount = 0;
         setUpMap();
         //empties the player array
         players = [];
@@ -96,9 +99,8 @@ client.on('message', async mess =>{
         if(playerCount + 1 > players.length-1){playerCount = 0}
         else{playerCount = playerCount + 1}
         getCardMessage(mess,pickedCard,cardCode);
+        if(numberOfKings == 0){mess.channel.send("Game Over! " + players[playerCount-1] + " Pick The Last King")}
     }
-
-
 })
     
 //Logs into the client object using the bot ref
