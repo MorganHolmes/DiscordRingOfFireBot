@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/MorganHolmes/DiscordRingOfFireBot/issues"
   },
-  "homepage": "https://github.com/MorganHolmes/DiscordRingOfFireBot#readme"
+  "homepage": "https://github.com/MorganHolmes/DiscordRingOfFireBot#readme",
+  "dependencies": {
+    "discord.js": "^12.1.1"
+  }
 }
