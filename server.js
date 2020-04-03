@@ -2,6 +2,7 @@
 //Set up the use of discord.js and creates a client object
 const Discord = require ('discord.js');
 const client = new Discord.Client();
+const fetch = require('node-fetch');
 
 //Puts a message in the terminal when the bot logs in
 client.on('ready', () => {
@@ -13,6 +14,7 @@ var quotes = ["I used to be an adventurer like you. Then I took an arrow in the 
 "My cousin's out fighting dragons, and what do I get? Guard duty.","Gotta keep my eyes open. Damn dragons could swoop down at any time.","Fear not. Come dragon or giant, we'll be ready."];
 
 let players = [];
+let deckID = "";
 
 function generateEmbedMessage(){
   var randomNumber = Math.floor(Math.random() * quotes.length);
@@ -30,9 +32,13 @@ function generateEmbedMessage(){
 }
 
 
-client.on('message', mess =>{
+client.on('message', async mess =>{
     if (mess.content === 'rofnewgame'){
         mess.channel.send("Welcome To Discord Ring of Fire");
+        //Starts a new game and stores the deck ID
+        const newDeck = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1').then(response => response.json());
+        deckID = newDeck.deck_id;
+        
         //empties the player array
         players = [];
         console.log("New Game Has Been Started");
