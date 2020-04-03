@@ -12,6 +12,7 @@ client.on('ready', () => {
 var quotes = ["I used to be an adventurer like you. Then I took an arrow in the knee...","Let me guess... someone stole your sweetroll.","Citizen.","Disrespect the law, and you disrespect me.","What do you need?","Trouble?","What is it?","No lollygaggin'.",
 "My cousin's out fighting dragons, and what do I get? Guard duty.","Gotta keep my eyes open. Damn dragons could swoop down at any time.","Fear not. Come dragon or giant, we'll be ready."];
 
+let players = [];
 
 function generateEmbedMessage(){
   var randomNumber = Math.floor(Math.random() * quotes.length);
@@ -30,10 +31,37 @@ function generateEmbedMessage(){
 
 
 client.on('message', mess =>{
-  if (mess.content === 'rof start new game'){
-    mess.channel.send("Hello New World");
-    console.log("New Game Has Been Started");
+    if (mess.content === 'newgame'){
+        mess.channel.send("Welcome To Discord Ring of Fire");
+        //empties the player array
+        players = [];
+        console.log("New Game Has Been Started");
     }
+
+    if(mess.content.includes('newplayer')){
+        let inboundMessage = mess.content;
+        let removedNewPlayerCommand = inboundMessage.replace("newplayer ","");
+        let removedHashTag = removedNewPlayerCommand.replace("#","");
+        if(players.length >= 9){
+            mess.channel.send("Sorry, only 10 players can play Discord Ring of Fire.");
+        }
+        else{
+            players.push(removedHashTag);
+            console.table(players);
+            mess.channel.send(removedHashTag + " is added to the game.");
+        }
+    }
+
+    if (mess.content === 'listplayers'){
+        if(players.length > 0){
+            mess.channel.send("No players in the game. Use the newplayer #name command to add a new player.");
+        }
+        for(let x = 0; x<players.length;x++){
+            mess.channel.send("Player"+(x+1)+":"+" "+players[x]);
+        }
+    }
+
+
 })
     
 //Logs into the client object using the bot ref
