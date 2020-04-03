@@ -15,6 +15,7 @@ var quotes = ["I used to be an adventurer like you. Then I took an arrow in the 
 
 let players = [];
 let deckID = "";
+let remainingCards = "";
 
 function generateEmbedMessage(){
   var randomNumber = Math.floor(Math.random() * quotes.length);
@@ -34,11 +35,11 @@ function generateEmbedMessage(){
 
 client.on('message', async mess =>{
     if (mess.content === 'rofnewgame'){
-        mess.channel.send("Welcome To Discord Ring of Fire");
+        mess.channel.send("Welcome To Discord Ring of Fire :flame: :beers:");
         //Starts a new game and stores the deck ID
         const newDeck = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1').then(response => response.json());
         deckID = newDeck.deck_id;
-        
+
         //empties the player array
         players = [];
         console.log("New Game Has Been Started");
@@ -71,6 +72,13 @@ client.on('message', async mess =>{
                 mess.channel.send("Player"+(x+1)+":"+" "+players[x]);
             }
         }
+    }
+
+    if(mess.content === 'rofpickcard'){
+        const pickedCard = await fetch('https://deckofcardsapi.com/api/deck/'+deckID+'/draw/?count=1').then(res => res.json());
+        remainingCards = pickedCard.remaining;
+        console.log(pickedCard);
+        mess.channel.send(pickedCard.cards[0].value + " " + pickedCard.cards[0].suit);
     }
 
 
