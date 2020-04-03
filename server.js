@@ -1,13 +1,11 @@
-  
-//Discord Guard Bot 1.0
-//Morgan Holmes
+//Discord Ring of Fire Bot - Morgan William Holmes 
 //Set up the use of discord.js and creates a client object
 const Discord = require ('discord.js');
 const client = new Discord.Client();
 
 //Puts a message in the terminal when the bot logs in
 client.on('ready', () => {
-  console.log('Guard Bot Is Logged In');
+  console.log('Ring of Fire Bot Is Logged In');
 });
 
 //Array of Skyrim guard quotes
@@ -32,22 +30,11 @@ function generateEmbedMessage(){
 
 
 client.on('message', mess =>{
-  if (mess.content === 'Guard'){
-    var VC = mess.member.voiceChannel;
-    if(VC == undefined){
-      console.log("User Is Not Part Of A Voice Channel");
-    }else{
-    
-      VC.join()
-        .then(connection => {
-          const dispatcher = connection.playFile('./SkyrimQuotes/NOLOLLYGAGGIN.mp3');
-          dispatcher.on("end", end => {VC.leave()});
-      }).catch(err => console.log(err));
+  if (mess.content === 'rof start new game'){
+    mess.channel.send("Hello New World");
+    console.log("New Game Has Been Started");
     }
-    mess.channel.send(generateEmbedMessage());
-    console.log("Bot Reply Has Been Successfully Sent");
-  }
-});
-
+})
+    
 //Logs into the client object using the bot ref
 client.login(process.env.DISCORD_ROF_BOT_TOKEN);
