@@ -1,0 +1,23 @@
+{
+  "name": "discordringoffirebot",
+  "version": "0.0.1",
+  "description": "discord bot for simulating ring of fire.",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MorganHolmes/DiscordRingOfFireBot.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "Morgan Holmes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MorganHolmes/DiscordRingOfFireBot/issues"
+  },
+  "homepage": "https://github.com/MorganHolmes/DiscordRingOfFireBot#readme"
+}
