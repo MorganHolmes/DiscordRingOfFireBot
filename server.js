@@ -12,11 +12,15 @@ client.on('ready', () => {
 let players = [];
 let deckID = "";
 let remainingCards = "";
+let numberOfKings = 4;
 
 const getCardMessage = (mess,card) => {
     const message = new Discord.MessageEmbed()
         .setTitle(card.cards[0].value + " of " + card.cards[0].suit )
         .setImage(card.cards[0].image)
+        .addFields(
+            { name: 'Number of Kings Remaining', value: numberOfKings }
+        )
         .setFooter(remainingCards + " cards remaining");
     mess.channel.send(message);
 }
@@ -65,6 +69,7 @@ client.on('message', async mess =>{
     if(mess.content === 'rofpickcard'){
         const pickedCard = await fetch('https://deckofcardsapi.com/api/deck/'+deckID+'/draw/?count=1').then(res => res.json());
         remainingCards = pickedCard.remaining;
+        if(pickedCard.cards[0].code.startsWith('K')){numberOfKings = numberOfKings - 1;}
         getCardMessage(mess,pickedCard);
     }
 
