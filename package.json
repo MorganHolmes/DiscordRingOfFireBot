@@ -22,6 +22,6 @@
   "homepage": "https://github.com/MorganHolmes/DiscordRingOfFireBot#readme",
   "dependencies": {
     "discord.js": "^12.1.1",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.7"
   }
 }
